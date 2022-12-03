@@ -1,0 +1,135 @@
+.header {
+	background-color: #111;
+	height: 50px;
+	padding: 2em;
+	border-bottom: 2px solid black;
+
+}
+
+.header a {
+	color: #999;
+	font-size: 25px;
+	text-decoration: none;
+	transition: color 0.2s;
+
+}
+
+.header a:hover {
+	color: #fff;
+}
+
+body {
+	margin: 0;
+	background-color: #444;
+	font-family: sans-serif;
+	width: 100%;
+}
+
+.container {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	margin-top: 5em;
+	width: 100%;
+}
+.menu {
+	padding: 2em;
+	border-radius: 10px;
+	border: 1px solid #888;
+	margin: 4em;
+	max-width: 33%;
+	font-size: 16px;
+	background-color: #ddd;
+}
+
+hr {
+	border: 1px solid #000;
+	margin: 3em 3em;
+
+}
+.lt, .rt {
+	width: 25%;
+	display: inline-block;
+}
+
+.ct {
+	width: 50%;
+}
+
+.menu h1 {
+	text-align: center;
+}
+
+.msgbox {
+	border-radius: 10px;
+	border: 3px double black;
+	height: 5em;
+	overflow: hidden;
+	padding: 1em;
+	background-color: #fff;
+}
+
+.item {
+	display: inline;
+}
+
+button {
+	padding: 1em;
+	width: 49%;
+	font-size: 20px;
+	color: #fff;
+	font-style: bold;
+	border-radius: 10px;
+	border-left: 0;
+	border-top: 0;
+}
+
+.fight {
+	background-color: #f55;
+	transition: background-color 0.2s;
+	border-bottom:5px solid #f88;
+	border-right:5px solid #f88;
+}
+
+.run {
+	background-color: #55f;
+	transition: background-color 0.2s;
+	border-bottom:5px solid #88f;
+	border-right:5px solid #88f;
+}
+
+.start {
+	background-color: #5a5;
+	transition: background-color 0.2s;
+	border-bottom: 5px solid #8c8;
+	border-right: 5px solid #8c8;
+}
+
+.fight:hover {
+	background-color: #f66;
+}
+
+.run:hover {
+	background-color: #66f;
+}
+
+.start:hover {
+	background-color: #6c6;
+}
+
+#game-scene {
+	margin: auto;
+	width: 100%;
+	text-align: center;
+}
+
+.fight:disabled, .start:disabled, .run:disabled {
+	background-color: #aaa;
+	border-bottom: 5px solid #ccc;
+	border-right: 5px solid #ccc;
+}
+
+.expbarCont {
+	background-color: #000;
+	width: 100px;
+}

@@ -1,0 +1,41 @@
+<DOCTYPE !html>
+<html lang="en">
+<head>
+	<title>RPG Game</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	<div class="header"><a href="/">Game</a></div>
+	<div class="container">
+		<div class="menu lt"><h1>Player</h1>
+			<b>Name: </b><span id="player-name">Minkia</span><br>
+			<b>Level: </b><span id="player-level"></span><br>
+			<div class="expbarCont"><img src="img/gui/expbar.png" id="expbar" width="0" height="4px"></div><br><br>
+			<b>HP: </b><span id="player-currenthp"></span>/<span id="player-maxhp"></span><br>
+			<b>Atk: </b><span id="player-atk"></span><br>
+			<b>Def: </b><span id="player-def"></span><br>
+			<hr class="divider">
+			<b>Weapon L: </b><span id="weapon-l"></span><br>
+			<b>Weapon R: </b><span id="weapon-r"></span><br>
+			<b>Head: </b><span id="head"></span><br>
+			<b>Body: </b><span id="body"></span><br>
+			<b>Legs: </b><span id="legs"></span><br>
+		</div>
+		<div class="menu ct"><h1>Game</h1>
+			<div id="game-scene"><img id="enemySprite" src="img/enemies/placeholder.png"></div><br>
+			<div class="msgbox" id="msgbox"></div>
+					<div align="center" style="margin-top: 2em;"><button class="fight" id="fight" onclick="fight()" disabled>Fight</button></td>
+					<button class="run" id="run" onclick="run()" disabled>Run</button><br><br>
+					<button class="start" id="start" onclick="gameStart()">Start</button></div>
+		</div>
+		<div class="menu rt"><h1>Inventory</h1>
+		<div id="inventory-items">
+		</div>
+		<br><br><br>
+		<div class="msgbox" id="itembox">e</div>
+	</div>
+	</div>
+<script src="main.js"></script>
+</body>
+</html>
