@@ -25,6 +25,11 @@ body {
 	width: 100%;
 }
 
+table, tr, td {
+	font-family: sans-serif;
+	font-size: 16px;
+}
+
 .container {
 	display: flex;
 	flex-direction: row;
@@ -58,6 +63,12 @@ hr {
 
 .menu h1 {
 	text-align: center;
+}
+
+table h1 {
+	text-align: center;
+	font-size: 32px;
+	margin-top: 2em;
 }
 
 .msgbox {
@@ -132,4 +143,24 @@ button {
 .expbarCont {
 	background-color: #000;
 	width: 100px;
+}
+
+#side-menu {
+	position: fixed;
+	top: 200;
+	left: -18.4%;
+	background-color: #fff;
+	height: 50%;
+	width: 20%;
+	border-radius: 20px;
+	border: 2px solid #aaa;
+	transition: left 1s;
+}
+
+#side-menu table {
+	font-size: 2em;
+}
+
+#side-menu:hover {
+	left: -1%;
 }

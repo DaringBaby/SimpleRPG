@@ -1,6 +1,7 @@
 const player =  {
 	"name": "cojone",
 	"level": 5,
+	"gold": 100,
 	"maxhp": 20,
 	"hp": 17,
 	"batk" : 10,
@@ -33,18 +34,24 @@ const enemy = {
 	"atk": 5, 
 	"def": 5,
 	"lck": 5,
-	"exp": 175,
+	"exp": 75,
 	"gold": 5,
 	"drops": [],
 	"drop-chance": [],
-	"sprite": "prova"
+	"sprite": "prova",
 }
 
+const shop = {
+	"items": [],
+	"cost": [],
+}
 
 
 const messageBox = document.getElementById("msgbox");
 const itemBox = document.getElementById("itembox");
-let fighting = false
+const shopBox = document.getElementById("shopbox");
+initializeShop();
+let fighting = false;
 
  function updatePlayer() {
  	document.getElementById("inventory-items").innerHTML = "";
@@ -54,6 +61,7 @@ let fighting = false
 	document.getElementById("player-currenthp").innerHTML = player.hp;
 	document.getElementById("player-atk").innerHTML = player.atk;
 	document.getElementById("player-def").innerHTML = player.def;
+	document.getElementById("player-gold").innerHTML = player.gold;
 	document.getElementById("weapon-l").innerHTML = player["weapon-l"];
 	document.getElementById("weapon-r").innerHTML = player["weapon-r"];
 	document.getElementById("head").innerHTML = player.head;
@@ -213,9 +221,12 @@ function endFight(){
 	if (enemy.hp == 0){
 		addMessage(player.name + " won the fight!");
 		player.exp = player.exp + enemy.exp;
+		player.gold = player.gold + enemy.gold;
 		addMessage(player.name + " gained " + String(enemy.exp) + " experience points!");
+		addMessage(player.name + " got " + String(enemy.gold) + " gold!");
 		checkLevelUp();
 		updateExpBar();
+		updatePlayer();
 	}
 	else if (player.hp == 0){
 		addMessage("You lost the fight.");
@@ -250,11 +261,62 @@ function checkLevelUp(){
 }
 
 function levelUp(){
-		player.maxhp = player.maxhp + 5;
-		player.hp = player.maxhp;
-		player.batk = player.batk + 2;
-		player.bdef = player.bdef + 2;
-		player.blck = player.blck + 1;
-		updateStats();
-		updatePlayer();
+	player.maxhp = player.maxhp + 5;
+	player.hp = player.maxhp;
+	player.batk = player.batk + 2;
+	player.bdef = player.bdef + 2;
+	player.blck = player.blck + 1;
+	updateStats();
+	updatePlayer();
+}
+
+function initializeShop() {
+	for (let i=0; i<10; i++){
+		shop.items.push("potion");
+		shop.cost.push(20);
+	}
+	renderShop();
+}
+
+function renderShop() {
+	shop_items = document.getElementById("shop-items");
+	shop_items.innerHTML = "";
+	for (let i=0; i<shop.items.length; i++){
+	console.log(shop.items[i]);
+		shop_items.innerHTML += "<img class='item' id='"+shop.items[i]+"' onClick='buyItem(this)' onMouseOver='setShopDesc(this)' src=img/items/" + shop.items[i] + ".png> ";
+	}
+}
+
+function buyItem(item){
+	let cost;
+	let index = shop.items.indexOf(item.id);
+	if (player.gold >= shop.cost[index]){
+		addMessage("You bought " + item.id + "!");
+		player.gold = player.gold - shop.cost[index];
+		addItem(item.id);
+	}
+	else {
+		addMessage("You don't have enough money for this.");
+	}
+	updatePlayer();
+}
+
+function setShopDesc(item){
+	let index = shop.items.indexOf(item.id);
+	switch(item.id){
+		case "potion":
+			shopBox.innerHTML = "Potion used to cure 20HP.<br><b>Cost:</b>" + String(shop.cost[index]);
+			break;
+	}
+}
+
+function addItem(item){
+	let index = player.inventory.indexOf(item);
+	if (index == -1){
+		player.inventory.push(item);
+		player.quantity.push(1);
+	}
+	else {
+		player.quantity[index]++;
+	}
 }
