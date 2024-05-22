@@ -23,7 +23,12 @@
 			<b>Legs: </b><span id="legs"></span><br>
 		</div>
 		<div class="menu ct"><h1>Game</h1>
-			<div id="game-scene"><img id="enemySprite" src="img/enemies/placeholder.png"></div><br>
+			<div id="game-scene">
+				<table align="center"><tr><td>
+				<div class="hpbarCont"><img src="img/gui/expbar.png" width="0" height="4px" id="hpbar"></div>
+				</td></tr></table>
+				<img id="enemySprite" src="img/enemies/placeholder.png">
+			</div><br>
 			<div class="msgbox" id="msgbox"></div>
 					<div align="center" style="margin-top: 2em;"><button class="fight" id="fight" onclick="fight()" disabled>Fight</button></td>
 					<button class="run" id="run" onclick="run()" disabled>Run</button><br><br>
@@ -37,5 +42,6 @@
 	</div>
 	</div>
 <script src="main.js"></script>
+<script type="module">import {enemy} from "./enemy.js";</script>
 </body>
 </html>

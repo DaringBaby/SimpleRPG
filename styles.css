@@ -67,6 +67,7 @@ hr {
 	overflow: hidden;
 	padding: 1em;
 	background-color: #fff;
+	overflow-y:auto;
 }
 
 .item {
@@ -121,6 +122,8 @@ button {
 	margin: auto;
 	width: 100%;
 	text-align: center;
+	display: block;
+	margin-left: auto;
 }
 
 .fight:disabled, .start:disabled, .run:disabled {
@@ -131,5 +134,10 @@ button {
 
 .expbarCont {
 	background-color: #000;
+	width: 100px;
+}
+
+.hpbarCont {
+	background: #ddd;
 	width: 100px;
 }

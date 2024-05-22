@@ -41,11 +41,9 @@ const enemy = {
 }
 
 
-
 const messageBox = document.getElementById("msgbox");
 const itemBox = document.getElementById("itembox");
 let fighting = false
-
  function updatePlayer() {
  	document.getElementById("inventory-items").innerHTML = "";
 	document.getElementById("player-name").innerHTML = player.name;
@@ -169,6 +167,7 @@ function spawnEnemy(){
 	document.getElementById("enemySprite").src = "img/enemies/" + enemy.sprite +".png";
 	enemy.hp = enemy.maxhp;
 	addMessage(enemy.name + " appears!");
+	document.getElementById("hpbar").width = (enemy.hp/enemy.maxhp) * 100;
 }
 
 function gameStart(){
@@ -180,6 +179,8 @@ function run(){
 	outBattleButtons();
 	addMessage(player.name + " ran from the battle!");
 	document.getElementById("enemySprite").src = "img/enemies/placeholder.png";
+	document.getElementById("hpbar").width = 0;
+
 }
 
 function fight(){
@@ -193,6 +194,7 @@ function fight(){
 		return;
 	}
 	damage = damageCalc(enemy.atk, player.def);
+	document.getElementById("hpbar").width = (enemy.hp/enemy.maxhp) * 100;
 	addMessage(enemy.name + " deals " + String(damage) + " damage to " + player.name + "!");
 	if (player.hp <= 0){
 		player.hp = 0;
@@ -216,6 +218,7 @@ function endFight(){
 		addMessage(player.name + " gained " + String(enemy.exp) + " experience points!");
 		checkLevelUp();
 		updateExpBar();
+		document.getElementById("hpbar").width = 0;
 	}
 	else if (player.hp == 0){
 		addMessage("You lost the fight.");
