@@ -1,6 +1,7 @@
 const player =  {
 	"name": "cojone",
 	"level": 5,
+	"gold": 0,
 	"maxhp": 20,
 	"hp": 17,
 	"batk" : 10,
@@ -48,6 +49,7 @@ let fighting = false
  	document.getElementById("inventory-items").innerHTML = "";
 	document.getElementById("player-name").innerHTML = player.name;
 	document.getElementById("player-level").innerHTML = player.level;
+	document.getElementById("player-gold").innerHTML = player.gold;
 	document.getElementById("player-maxhp").innerHTML = player.maxhp;
 	document.getElementById("player-currenthp").innerHTML = player.hp;
 	document.getElementById("player-atk").innerHTML = player.atk;
@@ -74,7 +76,6 @@ function addMessage(message) {
 }
 
 updatePlayer();
-addMessage("Suca");
 function setItemDesc(item){
 	switch (item.id){
 	case "potion":
@@ -214,8 +215,10 @@ function damageCalc(atk, def){
 function endFight(){
 	if (enemy.hp == 0){
 		addMessage(player.name + " won the fight!");
-		player.exp = player.exp + enemy.exp;
+		player.exp += enemy.exp;
 		addMessage(player.name + " gained " + String(enemy.exp) + " experience points!");
+		addMessage(player.name + " got " + String(enemy.gold) + " gold!");
+		player.gold += enemy.gold;
 		checkLevelUp();
 		updateExpBar();
 		document.getElementById("hpbar").width = 0;
