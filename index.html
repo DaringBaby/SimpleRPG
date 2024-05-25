@@ -17,8 +17,8 @@
 			<b>Atk: </b><span id="player-atk"></span><br>
 			<b>Def: </b><span id="player-def"></span><br>
 			<hr class="divider">
-			<b>Weapon L: </b><span id="weapon-l"></span><br>
-			<b>Weapon R: </b><span id="weapon-r"></span><br>
+			<b>Weapon: </b><span id="weapon"></span><br>
+			<b>Shield: </b><span id="shield"></span><br>
 			<b>Head: </b><span id="head"></span><br>
 			<b>Body: </b><span id="body"></span><br>
 			<b>Legs: </b><span id="legs"></span><br>
@@ -35,14 +35,17 @@
 					<button class="run" id="run" onclick="run()" disabled>Run</button><br><br>
 					<button class="start" id="start" onclick="gameStart()">Start</button></div>
 		</div>
-		<div class="menu rt"><h1>Inventory</h1>
+		<div class="menu rt"><h1 id="rightmenutext">Inventory</h1>
 		<div id="inventory-items">
 		</div>
+		<div id="shop" style="display: none">
+		suca coglione</div>
 		<br><br><br>
 		<div class="msgbox" id="itembox">e</div>
+		<br>
+		<button onclick="openInventory()" class="run">Inventory</button> <button onclick="openShop()" class="run">Shop</button>
 	</div>
 	</div>
 <script src="main.js"></script>
-<script type="module">import {enemy} from "./enemy.js";</script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 const player =  {
 	"name": "cojone",
 	"level": 5,
-	"gold": 0,
+	"gold": 100,
 	"maxhp": 20,
 	"hp": 17,
 	"batk" : 10,
@@ -14,13 +14,18 @@ const player =  {
 	"lck": 10,
 	"exp": 0,
 	"next-level": 100,
-	"weapon-l" : "None",
-	"weapon-r" : "None",
+	"weapon" : "None",
+	"shield" : "None",
 	"head" : "None",
 	"body" : "None",
 	"legs" : "None",
 	"inventory": ["potion", "antidote"],
 	"quantity": [1, 2],
+}
+
+const shop = {
+	"items" : ["potion", "antidote", "bronze_sword"],
+	"cost": [10, 20, 50],
 }
 
 const enemy = {
@@ -54,13 +59,21 @@ let fighting = false
 	document.getElementById("player-currenthp").innerHTML = player.hp;
 	document.getElementById("player-atk").innerHTML = player.atk;
 	document.getElementById("player-def").innerHTML = player.def;
-	document.getElementById("weapon-l").innerHTML = player["weapon-l"];
-	document.getElementById("weapon-r").innerHTML = player["weapon-r"];
+	document.getElementById("weapon").innerHTML = player["weapon"];
+	document.getElementById("shield").innerHTML = player["shield"];
 	document.getElementById("head").innerHTML = player.head;
 	document.getElementById("body").innerHTML = player.body;
 	document.getElementById("legs").innerHTML = player.legs;
 	for (var i = 0; i < player.inventory.length; i++){
 		document.getElementById("inventory-items").innerHTML += "<img class='item' id=" + player.inventory[i] + " onClick='useItem(this)' onMouseOver='setItemDesc(this)' src=img/items/"+ player.inventory[i]+".png> x" + String(player.quantity[i]) + " ";
+	}
+	updateShop();
+}
+
+function updateShop(){
+	document.getElementById("shop").innerHTML ="";
+	for (var i = 0; i<shop.items.length; i++){
+		document.getElementById("shop").innerHTML+= "<img class='item' id=" + shop.items[i] + " onclick='buyItem(this)' onMouseOver='setItemDesc(this)' src=img/items/" + shop.items[i] + ".png> G: " + String(shop.cost[i]) + " ";
 	}
 }
 
@@ -84,6 +97,8 @@ function setItemDesc(item){
 	case "antidote":
 		itemBox.innerHTML = "Antidote used to heal from poison.";
 		break;
+	case "bronze_sword":
+		itemBox.innerHTML = "A sword made out of bronze. Useful against weak enemies."
 	}
 }
 
@@ -94,11 +109,15 @@ function useItem(item){
 		if (player.hp > player.maxhp){
 			player.hp = player.maxhp;
 		}
-		messageBox.innerHTML = "Restored 20 HP!<br>" + messageBox.innerHTML;
+		messageBox.innerHTML = addMessage("Restored 20 HP!");
 		break;
 	case "antidote":
-		messageBox.innerHTML = "Healed from poison.<br>" + messageBox.innerHTML;
+		messageBox.innerHTML = addMessage("Healed from poison.");
 		break;
+	case "bronze_sword":
+		player.weapon = "bronze_sword";
+		updateStats();
+		addMessage("Equipped Bronze Sword.");
 	}
 	var index = player.inventory.indexOf(item.id);
 	console.log(index);
@@ -121,8 +140,8 @@ function updateStats(){
 }
 
 function calculate_atk_stat(){
-	switch(player["weapon-r"]){
-	case "Cum Sword":
+	switch(player["weapon"]){
+	case "bronze_sword":
 		player.atk = player.batk + 5;
 		break;
 	default:
@@ -132,7 +151,7 @@ function calculate_atk_stat(){
 }
 
 function calculate_def_stat(){
-	switch(player["weapon-l"]) {
+	switch(player["shield"]) {
 	case "Cum Shield":
 		player.def = player.bdef + 5;
 		break;
@@ -263,4 +282,41 @@ function levelUp(){
 		player.blck = player.blck + 1;
 		updateStats();
 		updatePlayer();
+}
+
+function openInventory(){
+	document.getElementById("rightmenutext").innerText = "Inventory";
+	document.getElementById("shop").style.display = "none"
+	document.getElementById("inventory-items").style.display = "block";
+}
+
+function openShop(){
+	document.getElementById("rightmenutext").innerText = "Shop";
+	document.getElementById("inventory-items").style.display = "none";
+	document.getElementById("shop").style.display = "block"
+}
+
+function buyItem(item){
+	var index_shop = shop.items.indexOf(item.id);
+	var index_inv = player.inventory.indexOf(item.id);
+	var cost = shop.cost[index_shop];
+	if (player.gold >= cost){
+		if (index_inv == -1){
+			player.inventory.push(item.id);
+			player.quantity.push(1);
+		}
+		else {
+			player.quantity[index_inv] += 1;
+		} 
+		player.gold -= cost;
+		if (item.id == "bronze_sword"){
+			shop.items.splice(index_shop, 1);
+			shop.cost.splice(index_shop, 1);
+		}
+	}
+	else {
+		addMessage("You don't have enough money!");
+	}
+	updatePlayer();
+
 }
